@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaugare in {{ table_name }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #b75ef2;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #871bcf;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adaugare in {{ table_name }}</h1>
+
+    <form method="POST" action="{{ url_for('add', table_name=table_name) }}">
+        {% for column in allowed_columns %}
+            <label for="{{ column }}">{{ column }}</label>
+            <input type="text" name="{{ column }}" id="{{ column }}" required>
+        {% endfor %}
+
+        <button type="submit">Adaugare</button>
+    </form>
+
+    <a href="{{ url_for('index', task_name='a') }}">
+        <button>Inapoi</button>
+    </a>
+</body>
+</html>

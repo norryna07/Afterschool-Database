@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="'viewport" content="'width=device-width, initial-scale=1.0">
+    <title>Centru de meditatii</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b75ef2;
+            color: white;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        button {
+            background-color: #b75ef2;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #871bcf;
+        }
+    </style>
+</head>
+
+<h1>Centru de meditatii - cerinta D</h1>
+<h2>Enunt: Listati elevii (nume și prenume) și suma totală pe care au achitat-o, pentru toți elevii care au de platit mai mult de 200 lei.</h2>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nume_elev</th>
+                <th>Prenume_elev</th>
+                <th>Suma</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    {% for col_rec in record %}
+                        <td>{{col_rec}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>   
+    </table>
+    <a href="{{url_for('index', task_name = 'a')}}">
+        <button> Inapoi </button>
+    </a>
+</body>

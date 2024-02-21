@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editare {{ table_name }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #b75ef2;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #871bcf;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editare - {{ table_name }}</h1>
+
+    <!-- Form for editing a record -->
+    <form method="POST" action="{{ url_for('edit', record_id=record_id, record_col=record_col, table_name=table_name) }}">
+        {% for column in allowed_columns %}
+            <label for="{{ column }}">{{ column }}</label>
+            <input type="text" id="{{ column }}" name="{{ column }}" value="{{ record[loop.index0] }}" required><br>
+        {% endfor %}
+
+        <button type="submit">Salvare</button>
+    </form>
+
+    <a href="{{ url_for('index', task_name='a') }}">
+        <button>Inapoi</button>
+    </a>
+</body>
+</html>

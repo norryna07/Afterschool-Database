@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="'viewport" content="'width=device-width, initial-scale=1.0">
+    <title>Centru de meditatii</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 10px;
+        }
+
+        select, button {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #b75ef2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b75ef2;
+            color: white;
+            cursor: pointer;
+        }
+
+        th a {
+            text-decoration: none;
+            color: white;
+        }
+
+        td a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        td a:hover {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #871bcf;
+        }
+    </style>
+</head>
+
+<h1>Centru de meditatii, vizualizarea {{view_name}}</h1>
+
+<form method="GET" action="{{ url_for('cerinta_f')}}">
+    <label for="view_name">Alegeti vizualizare:</label>
+    <select name="view_name" id="view_name">
+        {% for allowed_view in allowed_views %}
+            <option value="{{allowed_view}}" {% if allowed_view == view_name %}selected{% endif %}>
+                {{allowed_view}}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button>Submit</button>
+</form>
+
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for allowed_column in allowed_columns %}
+                    <th>{{allowed_column}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    {% for rec_col in record %}
+                        <td>{{rec_col}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{url_for('index')}}">
+        <button>Inapoi</button>
+    </a>
+</body>

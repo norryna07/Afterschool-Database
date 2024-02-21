@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centru de meditatii</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 10px;
+        }
+
+        select, button {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #b75ef2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b75ef2;
+            color: white;
+            cursor: pointer;
+        }
+
+        th a {
+            text-decoration: none;
+            color: white;
+        }
+
+        td a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        td a:hover {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #871bcf;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Centru de meditatii - {{ table_name }}</h1>
+
+    <form method="GET" action="{{ url_for('index') }}">
+        <label for="task_name">Alegeti cerinta:</label>
+        <select name="task_name" id="task_name">
+            <option value="a" {% if 'a' == task_name %}selected{% endif %}>Cerinta a</option>
+            <option value="b" {% if 'b' == task_name %}selected{% endif %}>Cerinta b</option>
+            <option value="c" {% if 'c' == task_name %}selected{% endif %}>Cerinta c</option>
+            <option value="d" {% if 'd' == task_name %}selected{% endif %}>Cerinta d</option>
+            <option value="e" {% if 'e' == task_name %}selected{% endif %}>Cerinta e</option>
+            <option value="f" {% if 'f' == task_name %}selected{% endif %}>Cerinta f</option>
+        </select>
+        <button>Submit</button>
+    </form>
+
+    <!-- Formular pentru alegere tabel -->
+    <form method="GET" action="{{ url_for('index') }}">
+        <label for="table_name">Alegeti tabelul:</label>
+        <select name="table_name" id="table_name">
+            {% for allowed_table in allowed_tables %}
+                <option value="{{ allowed_table }}" {% if allowed_table == table_name %}selected{% endif %}>
+                    {{ allowed_table }}
+                </option>
+            {% endfor %}
+        </select>
+        <button>Submit</button>
+    </form>
+
+    <!-- Afisarea tabelului -->
+    <table border="1">
+        <thead>
+            <tr>
+                {% for allowed_column in allowed_columns %}
+                    <th>
+                        {{ allowed_column }}
+                        <a href="{{ url_for('index', table_name=table_name, column_name=allowed_column, sort_order='asc') }}">
+                            &#9650;
+                        </a>
+                        <a href="{{ url_for('index', table_name=table_name, column_name=allowed_column, sort_order='desc') }}">
+                            &#9660;
+                        </a>
+                    </th>
+                {% endfor %}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    {% for col_rec in record %}
+                        <td>{{ col_rec }}</td>
+                    {% endfor %}
+                    <td>
+                        <a href="{{ url_for('edit', table_name=table_name, record_col=allowed_columns[0], record_id=record[0]) }}">
+                            <button>Editare</button>
+                        </a>
+                        <a href="{{ url_for('delete', table_name=table_name, record_col=allowed_columns[0], record_id=record[0]) }}">
+                            <button>Stergere</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('add', table_name=table_name) }}">
+        <button>Adaugare</button>
+    </a>
+</body>
+
+</html>
