@@ -19,9 +19,9 @@ This database will have 7 entities and an associative table as shown in diagram 
 ## SQL code
 Using the diagram I create the database, adding constrains and unique index - that permite to have a pair a columns unique just if one of the columns is not null.
 In [script](script.sql) are 3 steps:
-  i. drop step - deleting all the tables
-  ii. create step - create all the tables with constrains and unique indexies
-  iii. insert step - add rows in all tables
+  - drop step - deleting all the tables
+  -  create step - create all the tables with constrains and unique indexies
+  -  insert step - add rows in all tables
 
 ## Integration using python
 The integration step can be seen in [integration folder](integrare) where using Flask and Oracle database module, I extract information from the local database created using SQLplus for Windows. In the conection will need to be replace the username and the password for a local. 
