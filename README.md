@@ -14,7 +14,7 @@ This readme file will contain general information about this project. For more i
 
 ## Database design
 This database will have 7 entities and an associative table as shown in diagram below:
-[Diagram](conceptuala-1.png)
+![Diagram](conceptuala-1.png)
 
 ## SQL code
 Using the diagram I create the database, adding constrains and unique index - that permite to have a pair a columns unique just if one of the columns is not null.
